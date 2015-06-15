@@ -1,0 +1,31 @@
+-- Indirect Branches are fun
+
+I was curious about how to write a loop where the branches inside
+that loop would be mispredicted 100% of the time. 50% of the time
+should be fairly trival given a decent recorded source of entropy.
+Clearly, just using direction, the branch predictor is going to be
+lucky some of the time. We need more options, as a result I am playing
+with indirect targets. Indirect targets are branches which the direction
+does not change (well they are all unconditional on x86) but the target 
+changes. The target in this case comes from a register which I modify
+on every loop itteration. Indirect jumps are infrequently used, but here
+are a couple of reasons you might:
+
+switch statements. GCC makes these out of a tree of conditional branches,
+but some compilers prefer to use indirects. Tree of branches are hard for
+branch predictors due to the dense/short forward taken jumpy nature of 
+switch statements. Implementing with indirects is almost certainly worse.
+
+Function pointers. You kinda have to. Most never end up showing themselves as indirect branches because the target generally doesn't change in most use
+cases. Polymorphism being a likely example, but I haven't disassembled 
+bytecode recently... 
+
+I picked an inner loop filled with /xor rax, rax/ because I knew that
+this is a 3 byte instruction that has no dispatch restrictions and 
+consumes no functional units on the latest AMD/Intel processors. It
+is a zeroing idiom. I could have used nops but then my text file is 3x
+as big. Also, using add and jmp I needed to be able to jump over 6B
+so 3B instructions were perfect. TODO use a smaller add that isn't 4B. 
+
+Results: 
+Not at my miss rate goals yet

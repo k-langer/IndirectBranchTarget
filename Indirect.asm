@@ -1,42 +1,37 @@
+; Indirect Jumps
+; Single jump, 8 targets
+; All jumps are taken as a result, requires a cpu with path history to be able get any of them right
 extern printf
 
 section .text
 global main
 main:
-
-;mov rax , 64
-mov rax , 2500000000
+xor rax, rax 
+xor rbx, rbx
+;mov rax , 1000000
+mov rax , 4000000000
 loop: sub rax , 1
 mov rcx, tgt
-add rbx, 1
-mov rdx, rcx
-and rdx, 63
-add rdx, rcx
-jmp rdx
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-xor eax, eax
-tgt: nop
+mov rbx, rax
+and rbx, 7
+add rcx, rbx
+jmp rcx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+xor rdx, rdx
+tgt: 
 nop
-xor eax, eax
 nop
 nop
 nop
@@ -44,92 +39,13 @@ nop
 nop
 nop
 nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-xor eax, eax
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-nop
-; cmp rbp, 22
-; jl tgt
+
 cmp rax , 0
 jg loop
+
+
+end: mov rax, 60
+xor rdi, rdi
+syscall
 
 

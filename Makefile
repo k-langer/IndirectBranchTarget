@@ -1,4 +1,4 @@
-CC=nasm
+CC=nasm -g
 LINK=gcc -g -m64
 OUTDIR = build
 TARGET= Indirect

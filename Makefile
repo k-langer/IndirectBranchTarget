@@ -12,5 +12,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(LINK) -o $@ $^ 
 
+run:
+	perf stat ./Indirect
 clean:  
 	rm -f *.o Indirect trace/Indirect
